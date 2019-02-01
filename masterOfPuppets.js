@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer')
 const fs = require('fs') 
+const mysql = require('mysql')
+
 
 
 async function launchBrowser(){
