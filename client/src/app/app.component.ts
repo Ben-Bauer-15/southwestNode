@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpService } from "./http.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,26 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+  departAirportCode : String;
+  arrivalAirportCode : String;
+  returningDate : String;
+  departingDate : String;
+  email : String;
+  phone : String;
+
+  constructor(private _http : HttpService){}
+
+  submit(){
+    let obs = this._http.startFareSearch({
+      adultsCount : 1,
+      departingDate : this.departingDate, 
+      returningDate : this.returningDate,
+      destinationAirport : this.arrivalAirportCode, 
+      originAirport : this.departAirportCode,
+      })
+    obs.subscribe( (data) => {
+      console.log(data)
+    })
+  }
+
 }
