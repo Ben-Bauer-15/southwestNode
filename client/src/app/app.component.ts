@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'client';
   departAirportCode : String;
   arrivalAirportCode : String;
-  returningDate = new Date()
+  returningDate : Date
   departingDate = new Date()
   today = new Date()
   maxFutureBooking : Date;
@@ -22,6 +22,8 @@ export class AppComponent {
   arriveAirportOptions : Array<String>;
   selectedDepartAirport : Boolean = false
   selectedArriveAirport : Boolean = false
+  userEmail : String;
+  userPhone : String;
   
   
   constructor(private _http : HttpService){
@@ -30,19 +32,29 @@ export class AppComponent {
   }
   
   submit(){
-    const dates = this.parseDateObjects()
-    let obs = this._http.startFareSearch({
-      adultsCount : 1,
-      departingDate : dates.depart, 
-      returningDate : dates.return,
-      destinationAirport : this.arrivalAirportCode, 
-      originAirport : this.departAirportCode,
+
+    if (this.missingInfo()){
+      alert("You haven't fully filled out the form!")
+    }
+
+    else if (this.departAirportCode == this.arrivalAirportCode){
+      alert("Origin and destination airports cannot be the same")
+    }
+
+    else {
+      const dates = this.parseDateObjects()
+
+      let obs = this._http.startFareSearch({
+        adultsCount : 1,
+        departingDate : dates.depart, 
+        returningDate : dates.return,
+        destinationAirport : this.arrivalAirportCode, 
+        originAirport : this.departAirportCode,
       })
-    obs.subscribe( (data) => {
-      console.log(data)
-    })
-    // console.log(dates)
-    // console.log(this.departingDate, this.returningDate, this.departAirportCode, this.arrivalAirportCode)
+      obs.subscribe( (data) => {
+        console.log(data)
+      })
+    }
   }
 
   ngOnInit(){}
@@ -55,7 +67,7 @@ export class AppComponent {
       this.selectedDepartAirport = false
       let obs = this._http.getAirportSuggestions({input : this.departAirportCode})
       obs.subscribe((data : any) => {
-        this.departAirportOptions = data.airports.slice(0, 3)
+        this.departAirportOptions = data.airports
       })
     }
   }
@@ -68,7 +80,7 @@ export class AppComponent {
       this.selectedArriveAirport = false
       let obs = this._http.getAirportSuggestions({input : this.arrivalAirportCode})
       obs.subscribe((data : any) => {
-        this.arriveAirportOptions = data.airports.slice(0, 3)
+        this.arriveAirportOptions = data.airports
       })
     }
   }
@@ -105,6 +117,17 @@ export class AppComponent {
       s = "0" + s;
     }
     return s;
+  }
+
+  missingInfo(){
+    // console.log(this.arrivalAirportCode, this.departAirportCode, this.returningDate)
+
+    return !this.arrivalAirportCode || 
+    !this.departAirportCode || 
+    !this.returningDate ||
+    !this.userEmail ||
+    !this.userPhone
+
   }
 
 }

@@ -34,7 +34,7 @@ module.exports = {
                 console.log(err)
                 return false
             }
-            console.log(res)
+            var tmp = res
             
         })
 

@@ -1,11 +1,12 @@
 <div class = 'container'>
-  <h1>Welcome to the Southwest Airlines Low Price Finder!</h1>
+  <h1>Welcome to the Southwest Airlines Low Fare Finder!</h1>
   <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>
+  <h5>Wanna Get Away Fare selected by default (for now)</h5>
 
   <div class = 'row'>
 
       <mat-form-field class = 'airport'>
-        <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type="text" placeholder="From" aria-label="From" matInput>
+        <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type="text" placeholder="From" aria-label="From" matInput required>
         <div *ngIf = '!selectedDepartAirport'> 
           <mat-option  (click) = 'selectDepartOption(option)' *ngFor="let option of departAirportOptions" [value]="option">
             {{option}}
@@ -14,7 +15,7 @@
       </mat-form-field>
     
       <mat-form-field class = 'airport'>
-        <input (keyup) = 'toKeyUp()' [(ngModel)] = 'arrivalAirportCode' type="text" placeholder="To" aria-label="To" matInput>
+        <input (keyup) = 'toKeyUp()' [(ngModel)] = 'arrivalAirportCode' type="text" placeholder="To" aria-label="To" matInput required>
         <div *ngIf = '!selectedArriveAirport'>
           <mat-option  (click) = 'selectArriveOption(option)' *ngFor="let option of arriveAirportOptions" [value]="option">
             {{option}}
@@ -28,24 +29,33 @@
   <div class = 'row'>
 
     <mat-form-field class = 'airport'>
-      <input [(ngModel)] = 'departingDate' matInput [matDatepicker]="depart" placeholder="Depart" [min] = 'today' [max] = 'maxFutureBooking'>
+      <input [(ngModel)] = 'departingDate' matInput [matDatepicker]="depart" placeholder="Depart" [min] = 'today' [max] = 'maxFutureBooking' required>
       <mat-datepicker-toggle matSuffix [for]="depart"></mat-datepicker-toggle>
       <mat-datepicker #depart></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class = 'airport'>
-      <input [(ngModel)] = 'returningDate' matInput [matDatepicker]="picker" placeholder="Return" [min] = 'departingDate' [max] = 'maxFutureBooking'>
+      <input [(ngModel)] = 'returningDate' matInput [matDatepicker]="picker" placeholder="Return" [min] = 'departingDate' [max] = 'maxFutureBooking' required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
   </div>
+  <div class = 'row'>
+    <mat-form-field class = "airport">
+        <input [(ngModel)] = 'userEmail' matInput placeholder="Email" required>
+    </mat-form-field>
+
+    <mat-form-field class = "airport">
+        <input [(ngModel)] = 'userPhone' matInput placeholder="Phone Number" required>
+    </mat-form-field>
+  </div>
 
   <div class = 'row'>
 
+    <button mat-button (click) = 'submit()'>Let's Go!</button>
     
   </div>
 
-  <button (click) = 'submit()'>Let's Go!</button>
   
 </div>

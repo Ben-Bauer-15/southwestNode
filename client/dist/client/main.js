@@ -63,7 +63,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airlines Low Price Finder!</h1>\n  <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>\n\n  <div class = 'row'>\n\n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type=\"text\" placeholder=\"From\" aria-label=\"From\" matInput>\n        <div *ngIf = '!selectedDepartAirport'> \n          <mat-option  (click) = 'selectDepartOption(option)' *ngFor=\"let option of departAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n    \n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'toKeyUp()' [(ngModel)] = 'arrivalAirportCode' type=\"text\" placeholder=\"To\" aria-label=\"To\" matInput>\n        <div *ngIf = '!selectedArriveAirport'>\n          <mat-option  (click) = 'selectArriveOption(option)' *ngFor=\"let option of arriveAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n      \n\n  </div>\n    \n  <div class = 'row'>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'departingDate' matInput [matDatepicker]=\"depart\" placeholder=\"Depart\" [min] = 'today' [max] = 'maxFutureBooking'>\n      <mat-datepicker-toggle matSuffix [for]=\"depart\"></mat-datepicker-toggle>\n      <mat-datepicker #depart></mat-datepicker>\n    </mat-form-field>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'returningDate' matInput [matDatepicker]=\"picker\" placeholder=\"Return\" [min] = 'departingDate' [max] = 'maxFutureBooking'>\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n  </div>\n\n  <div class = 'row'>\n\n    \n  </div>\n\n  <button (click) = 'submit()'>Let's Go!</button>\n  \n</div>"
+module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airlines Low Fare Finder!</h1>\n  <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>\n  <h5>Wanna Get Away Fare selected by default (for now)</h5>\n\n  <div class = 'row'>\n\n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type=\"text\" placeholder=\"From\" aria-label=\"From\" matInput required>\n        <div *ngIf = '!selectedDepartAirport'> \n          <mat-option  (click) = 'selectDepartOption(option)' *ngFor=\"let option of departAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n    \n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'toKeyUp()' [(ngModel)] = 'arrivalAirportCode' type=\"text\" placeholder=\"To\" aria-label=\"To\" matInput required>\n        <div *ngIf = '!selectedArriveAirport'>\n          <mat-option  (click) = 'selectArriveOption(option)' *ngFor=\"let option of arriveAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n      \n\n  </div>\n    \n  <div class = 'row'>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'departingDate' matInput [matDatepicker]=\"depart\" placeholder=\"Depart\" [min] = 'today' [max] = 'maxFutureBooking' required>\n      <mat-datepicker-toggle matSuffix [for]=\"depart\"></mat-datepicker-toggle>\n      <mat-datepicker #depart></mat-datepicker>\n    </mat-form-field>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'returningDate' matInput [matDatepicker]=\"picker\" placeholder=\"Return\" [min] = 'departingDate' [max] = 'maxFutureBooking' required>\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n  </div>\n  <div class = 'row'>\n    <mat-form-field class = \"airport\">\n        <input [(ngModel)] = 'userEmail' matInput placeholder=\"Email\" required>\n    </mat-form-field>\n\n    <mat-form-field class = \"airport\">\n        <input [(ngModel)] = 'userPhone' matInput placeholder=\"Phone Number\" required>\n    </mat-form-field>\n  </div>\n\n  <div class = 'row'>\n\n    <button mat-button (click) = 'submit()'>Let's Go!</button>\n    \n  </div>\n\n  \n</div>"
 
 /***/ }),
 
@@ -74,7 +74,7 @@ module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  text-align: center; }\n  .container .airportCode {\n    border: 1px solid gray;\n    border-radius: 5px;\n    width: 120px;\n    height: 50px;\n    margin-right: 50px;\n    font-size: 40px; }\n  .container label {\n    display: inline-block;\n    vertical-align: bottom;\n    margin-right: 15px; }\n  .container .row {\n    margin-bottom: 40px;\n    text-align: center; }\n  .container .airport {\n    margin-right: 50px;\n    width: 250px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYmF1ZXIvRGVza3RvcC9zb3V0aHdlc3Qvbm9kZVNjcmFwZXIvY2xpZW50L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQWtCLEVBQUE7RUFEdEI7SUFJUSxzQkFBc0I7SUFDdEIsa0JBQWtCO0lBQ2xCLFlBQVk7SUFDWixZQUFZO0lBQ1osa0JBQWtCO0lBQ2xCLGVBQWUsRUFBQTtFQVR2QjtJQWNRLHFCQUFxQjtJQUNyQixzQkFBc0I7SUFDdEIsa0JBQWtCLEVBQUE7RUFoQjFCO0lBb0JRLG1CQUFtQjtJQUNuQixrQkFBa0IsRUFBQTtFQXJCMUI7SUF5QlEsa0JBQWtCO0lBQ2xCLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250YWluZXIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICAgIC5haXJwb3J0Q29kZSB7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkIGdyYXk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICAgICAgd2lkdGg6IDEyMHB4O1xuICAgICAgICBoZWlnaHQ6IDUwcHg7XG4gICAgICAgIG1hcmdpbi1yaWdodDogNTBweDtcbiAgICAgICAgZm9udC1zaXplOiA0MHB4O1xuICAgIH1cblxuXG4gICAgbGFiZWwge1xuICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgIHZlcnRpY2FsLWFsaWduOiBib3R0b207XG4gICAgICAgIG1hcmdpbi1yaWdodDogMTVweDtcbiAgICB9XG5cbiAgICAucm93IHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogNDBweDtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIH1cblxuICAgIC5haXJwb3J0IHtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiA1MHB4O1xuICAgICAgICB3aWR0aDogMjUwcHg7XG4gICAgfVxuXG59Il19 */"
+module.exports = ".container {\n  text-align: center; }\n  .container .airportCode {\n    border: 1px solid gray;\n    border-radius: 5px;\n    width: 120px;\n    height: 50px;\n    margin-right: 50px;\n    font-size: 40px; }\n  .container label {\n    display: inline-block;\n    vertical-align: bottom;\n    margin-right: 15px; }\n  .container .row {\n    margin-bottom: 40px;\n    text-align: center; }\n  .container .airport {\n    margin: 0px 25px 0px 25px;\n    width: 250px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYmF1ZXIvRGVza3RvcC9zb3V0aHdlc3Qvbm9kZVNjcmFwZXIvY2xpZW50L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQWtCLEVBQUE7RUFEdEI7SUFJUSxzQkFBc0I7SUFDdEIsa0JBQWtCO0lBQ2xCLFlBQVk7SUFDWixZQUFZO0lBQ1osa0JBQWtCO0lBQ2xCLGVBQWUsRUFBQTtFQVR2QjtJQWNRLHFCQUFxQjtJQUNyQixzQkFBc0I7SUFDdEIsa0JBQWtCLEVBQUE7RUFoQjFCO0lBb0JRLG1CQUFtQjtJQUNuQixrQkFBa0IsRUFBQTtFQXJCMUI7SUF5QlEseUJBQXlCO0lBQ3pCLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250YWluZXIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICAgIC5haXJwb3J0Q29kZSB7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkIGdyYXk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICAgICAgd2lkdGg6IDEyMHB4O1xuICAgICAgICBoZWlnaHQ6IDUwcHg7XG4gICAgICAgIG1hcmdpbi1yaWdodDogNTBweDtcbiAgICAgICAgZm9udC1zaXplOiA0MHB4O1xuICAgIH1cblxuXG4gICAgbGFiZWwge1xuICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgIHZlcnRpY2FsLWFsaWduOiBib3R0b207XG4gICAgICAgIG1hcmdpbi1yaWdodDogMTVweDtcbiAgICB9XG5cbiAgICAucm93IHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogNDBweDtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIH1cblxuICAgIC5haXJwb3J0IHtcbiAgICAgICAgbWFyZ2luOiAwcHggMjVweCAwcHggMjVweDtcbiAgICAgICAgd2lkdGg6IDI1MHB4O1xuICAgIH1cblxufSJdfQ== */"
 
 /***/ }),
 
@@ -98,7 +98,6 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_http) {
         this._http = _http;
         this.title = 'client';
-        this.returningDate = new Date();
         this.departingDate = new Date();
         this.today = new Date();
         this.selectedDepartAirport = false;
@@ -106,19 +105,25 @@ var AppComponent = /** @class */ (function () {
         this.maxFutureBooking = new Date(this.today.getFullYear(), this.today.getMonth() + 7, 30);
     }
     AppComponent.prototype.submit = function () {
-        var dates = this.parseDateObjects();
-        var obs = this._http.startFareSearch({
-            adultsCount: 1,
-            departingDate: dates.depart,
-            returningDate: dates.return,
-            destinationAirport: this.arrivalAirportCode,
-            originAirport: this.departAirportCode,
-        });
-        obs.subscribe(function (data) {
-            console.log(data);
-        });
-        // console.log(dates)
-        // console.log(this.departingDate, this.returningDate, this.departAirportCode, this.arrivalAirportCode)
+        if (this.missingInfo()) {
+            alert("You haven't fully filled out the form!");
+        }
+        else if (this.departAirportCode == this.arrivalAirportCode) {
+            alert("Origin and destination airports cannot be the same");
+        }
+        else {
+            var dates = this.parseDateObjects();
+            var obs = this._http.startFareSearch({
+                adultsCount: 1,
+                departingDate: dates.depart,
+                returningDate: dates.return,
+                destinationAirport: this.arrivalAirportCode,
+                originAirport: this.departAirportCode,
+            });
+            obs.subscribe(function (data) {
+                console.log(data);
+            });
+        }
     };
     AppComponent.prototype.ngOnInit = function () { };
     AppComponent.prototype.fromKeyUp = function () {
@@ -130,7 +135,7 @@ var AppComponent = /** @class */ (function () {
             this.selectedDepartAirport = false;
             var obs = this._http.getAirportSuggestions({ input: this.departAirportCode });
             obs.subscribe(function (data) {
-                _this.departAirportOptions = data.airports.slice(0, 3);
+                _this.departAirportOptions = data.airports;
             });
         }
     };
@@ -143,7 +148,7 @@ var AppComponent = /** @class */ (function () {
             this.selectedArriveAirport = false;
             var obs = this._http.getAirportSuggestions({ input: this.arrivalAirportCode });
             obs.subscribe(function (data) {
-                _this.arriveAirportOptions = data.airports.slice(0, 3);
+                _this.arriveAirportOptions = data.airports;
             });
         }
     };
@@ -171,6 +176,14 @@ var AppComponent = /** @class */ (function () {
             s = "0" + s;
         }
         return s;
+    };
+    AppComponent.prototype.missingInfo = function () {
+        // console.log(this.arrivalAirportCode, this.departAirportCode, this.returningDate)
+        return !this.arrivalAirportCode ||
+            !this.departAirportCode ||
+            !this.returningDate ||
+            !this.userEmail ||
+            !this.userPhone;
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

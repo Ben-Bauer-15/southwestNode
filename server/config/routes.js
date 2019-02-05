@@ -16,4 +16,8 @@ module.exports = function(app){
         controller.getAirportSuggestions(req, res)
     })
 
+    app.post('/sendText', function(req, res){
+        controller.sendText(req, res)
+    })
+
 }
