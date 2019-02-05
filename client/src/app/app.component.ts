@@ -44,12 +44,15 @@ export class AppComponent {
     else {
       const dates = this.parseDateObjects()
 
+      console.log(this.userEmail)
       let obs = this._http.startFareSearch({
         adultsCount : 1,
         departingDate : dates.depart, 
         returningDate : dates.return,
         destinationAirport : this.arrivalAirportCode, 
         originAirport : this.departAirportCode,
+        userEmail : this.userEmail,
+        userPhone : this.userPhone
       })
       obs.subscribe( (data) => {
         console.log(data)

@@ -113,12 +113,15 @@ var AppComponent = /** @class */ (function () {
         }
         else {
             var dates = this.parseDateObjects();
+            console.log(this.userEmail);
             var obs = this._http.startFareSearch({
                 adultsCount: 1,
                 departingDate: dates.depart,
                 returningDate: dates.return,
                 destinationAirport: this.arrivalAirportCode,
                 originAirport: this.departAirportCode,
+                userEmail: this.userEmail,
+                userPhone: this.userPhone
             });
             obs.subscribe(function (data) {
                 console.log(data);

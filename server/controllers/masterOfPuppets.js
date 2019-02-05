@@ -13,6 +13,7 @@ module.exports = {
 
         const urlToVisit = 'https://www.southwest.com/air/booking/select.html?adultPassengersCount='+ req.body.adultsCount +'&departureDate='+ req.body.departingDate +'&departureTimeOfDay=ALL_DAY&destinationAirportCode='+ req.body.destinationAirport +'&fareType=USD&originationAirportCode='+ req.body.originAirport +'&passengerType=ADULT&promoCode=&reset=true&returnDate='+ req.body.returningDate +'&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip'
 
+        // console.log(req.body.userEmail)
         console.log(urlToVisit)
 
         const browser = await puppeteer.launch();
@@ -29,12 +30,20 @@ module.exports = {
         //     console.log("Successfully wrote the file")
         // })
 
-        request.post('http://127.0.0.1:8000/parserTest', { form: {data : SWcontent} }, function(err, res, body){
+        request.post('http://127.0.0.1:8000/startFareSearch', 
+            { form: {siteData : SWcontent, 
+                    userEmail : req.body.userEmail,
+                    userPhone : req.body.userPhone,
+                    originAirport : req.body.originAirport,
+                    destinationAirport : req.body.destinationAirport,
+                    departingDate : req.body.departingDate,
+                    returningDate : req.body.returningDate
+            } }, function(err, res, body){
             if (err){
                 console.log(err)
                 return false
             }
-            var tmp = res
+            const tmp = res
             
         })
 
