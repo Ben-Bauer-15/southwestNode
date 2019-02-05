@@ -3,23 +3,41 @@
   <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>
 
   <div class = 'row'>
-
-    <label for = 'departAirportCode'>From: </label>
-    <input class = 'airportCode' type = 'text' name = 'departAirportCode' [(ngModel)] = 'departAirportCode'>
-
-    <label for = 'arrivalAirportCode'>To: </label>
-    <input class = 'airportCode' type = 'text' name = 'arrivalAirportCode' [(ngModel)] = 'arrivalAirportCode'>
+    
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="From" aria-label="From" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="To" aria-label="To" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
   </div>
     
   <div class = 'row'>
 
-    <label for = 'departingDate'>Depart Date: </label>
-    <input class = 'airportCode' type = 'text' name = 'departingDate' [(ngModel)] = 'departingDate'>
+    <mat-form-field>
+      <input matInput [matDatepicker]="depart" placeholder="Depart">
+      <mat-datepicker-toggle matSuffix [for]="depart"></mat-datepicker-toggle>
+      <mat-datepicker #depart></mat-datepicker>
+    </mat-form-field>
 
-    <label for = 'returningDate'>Return Date: </label>
-    <input class = 'airportCode' type = 'text' name = 'returningDate' [(ngModel)] = 'returningDate'>
-    
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Return">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
   </div>
 
   <div class = 'row'>

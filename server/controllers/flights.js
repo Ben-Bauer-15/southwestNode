@@ -1,21 +1,32 @@
 var http = require('http')
+var fs = require('fs')
+var airports = []
+var readline = require('readline').createInterface({
+    input : fs.createReadStream('./server/controllers/airports.txt')
+})
+readline.on('line', function(line){
+    airports.push(line)
+})
+
+
+
 
 module.exports  = {
-    testDjango : function(req, res){
+
+    getAirportSuggestions : function(req, res){
         
-        http.get('http://127.0.0.1:8000', (resp) => {
-        let data = ''
-        resp.on('data', (chunk) => {
-            // console.log(chunk)
-            data += chunk
-            console.log(data)
-        })
+        const rawSub = req.body.input
+        const allCaps = rawSub.toUpperCase()
+        const firstCharCaps = rawSub.charAt(0).toUpperCase() + rawSub.slice(1, rawSub.length)
+        
+        var suggestions = []
 
-        resp.on('end', () => {
-            // console.log(data);
-            res.json({message : data})
-        });
-    })
+        for (var i = 0; i < airports.length; i++){
+            const airportName = airports[i]
+            if (airportName.includes(rawSub) || airportName.includes(allCaps) || airportName.includes(firstCharCaps)){
+                suggestions.push(airportName)
+            }
+        }
+        res.json({airports : suggestions})
     }
-
 }

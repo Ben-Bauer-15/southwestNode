@@ -21,20 +21,21 @@ module.exports = {
         const SWcontent = await page.content()
         await browser.close();
 
-        fs.writeFile('./backend/files/test.txt', SWcontent, function(err){
-            if (err){
-                console.log(err)
-                return false
-            }
-            console.log("Successfully wrote the file")
-        })
+        // fs.writeFile('./backend/files/test.txt', SWcontent, function(err){
+        //     if (err){
+        //         console.log(err)
+        //         return false
+        //     }
+        //     console.log("Successfully wrote the file")
+        // })
 
-        request.post('http://127.0.0.1:8000/test', {form: {data : SWcontent}}, function(err, res, body){
+        request.post('http://127.0.0.1:8000/parserTest', { form: {data : SWcontent} }, function(err, res, body){
             if (err){
                 console.log(err)
                 return false
             }
             console.log(res)
+            
         })
 
         res.json({message : "Success!"})

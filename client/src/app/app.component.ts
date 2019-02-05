@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpService } from "./http.service";
+import { FormControl } from "@angular/forms";
+
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,7 @@ export class AppComponent {
     obs.subscribe( (data) => {
       console.log(data)
     })
+    // console.log('line 31')
   }
 
 }

@@ -8,11 +8,12 @@ module.exports = function(app){
         res.sendFile(path.resolve("client/dist/client/index.html"))
     })
 
-    app.post('/testDjango', function(req, res){
-        controller.testDjango(req, res)
-    })
-
     app.post('/startFareSearch', function(req, res){
         puppeteer.grabSiteData(req, res)
     })
+
+    app.post('/getAirportSuggestions', function(req, res){
+        controller.getAirportSuggestions(req, res)
+    })
+
 }

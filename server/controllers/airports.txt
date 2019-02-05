@@ -1,0 +1,99 @@
+Albuquerque, NM - ABQ
+Albany, NY - ALB
+Amarillo, TX - AMA
+Atlanta, GA - ATL
+Aruba, Aruba - AUA
+Austin, TX - AUS
+Hartford, CT - BDL
+Birmingham, AL - BHM
+Nashville, TN - BNA
+Boise, ID - BOI
+Boston Logan, MA - BOS
+Buffalo/Niagara, NY - BUF
+Burbank, CA - BUR
+Baltimore/Washington, MD - BWI
+Belize City, Belize - BZE
+Charleston, SC - CHS
+Cleveland, OH - CLE
+Charlotte, NC - CLT
+Columbus, OH - CMH
+Corpus Christi, TX - CRP
+Cancun, Mexico - CUN
+Cincinnati, OH - CVG
+Dallas (Love Field), TX - DAL
+Washington (Reagan National), DC - DCA
+Denver, CO - DEN
+Des Moines, IA - DSM
+Detroit, MI - DTW
+Panama City Beach, FL - ECP
+El Paso, TX - ELP
+New York/Newark, NJ - EWR
+Ft. Lauderdale, FL - FLL
+Grand Cayman, Cayman Islands - GCM
+Spokane, WA - GEG
+Grand Rapids, MI - GRR
+Greenvile/Spartanburg, SC - GSP
+Havana, Cuba - HAV
+Houston (Hobby), TX - HOU
+Harlingen, TX - HRL
+Washington (Dulles), DC - IAD
+Wichita, KS - ICT
+Indianapolis, IN - IND
+Long Island/Islip, NY - ISP
+Jacksonville, FL - JAX
+Las Vegas, NV - LAS
+Los Angeles, CA - LAX
+Lubbock, TX - LBB
+New York (LaGuardia), NY - LGA
+Long Beach, CA - LGB
+Liberia, Costa Rica - LIR
+Little Rock, AR - LIT
+Midland/Odessa, TX - MAF
+Montego Bay, Jamaica - MBJ
+Kansas City, MO - MCI
+Orlando, FL - MCO
+Chicago (Midway), IL - MDW
+Memphis, TN - MEM
+Mexico City, Mexico - MEX
+Manchester, NH - MHT
+Milwaukee, WI - MKE
+Minneapolis/St. Paul (Terminal 2), MN - MSP
+New Orleans, LA - MSY
+Nassau, Bahamas - NAS
+Oakland, CA - OAK
+Oklahoma City, OK - OKC
+Omaha, NE - OMA
+Ontario/LA, CA - ONT
+Norfolk, VA - ORF
+West Palm Beach, FL - PBI
+Portland, OR - PDX
+Philadelphia, PA - PHL
+Phoenix, AZ - PHX
+Pittsburgh, PA - PIT
+Providenciales, Turks and Caicos - PLS
+Pensacola, FL - PNS
+Punta Cana, DO - PUJ
+Providence, RI - PVD
+Puerto Vallarta, MX - PVR
+Portland, ME - PWM
+Raleigh/Durham, NC - RDU
+Richmond, VA - RIC
+Reno/Tahoe, NV - RNO
+Rochester, NY - ROC
+Ft. Myers, FL - RSW
+San Diego, CA - SAN
+San Antonio, TX - SAT
+Louisville, KY - SDF
+Seattle/Tacoma, WA - SEA
+San Francisco, CA - SFO
+San Jose, CA - SJC
+Cabo San Lucas/Los Cabos, MX - SJD
+San Jose, Costa Rica - SJO
+San Juan, PR - SJU
+Sal Lake City, UT - SLC
+Sacramento, CA - SMF
+Orange County/Santa Ana, CA - SNA
+St. Louis, MO - STL
+Tampa, FL - TPA
+Tulsa, OK - TUL
+Tuscon, AZ - TUS
