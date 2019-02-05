@@ -8,11 +8,13 @@ export class HttpService {
 
   constructor(private _http : HttpClient) { }
 
-  testDjango(obj){
-    return this._http.post('/testDjango', obj)
-  }
 
   startFareSearch(obj){
     return this._http.post('/startFareSearch', obj)
   }
+
+  getAirportSuggestions(obj){
+    return this._http.post('/getAirportSuggestions', obj)
+  }
+
 }

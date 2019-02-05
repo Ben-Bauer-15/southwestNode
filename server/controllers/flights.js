@@ -9,24 +9,28 @@ readline.on('line', function(line){
 })
 
 
-
-
 module.exports  = {
 
     getAirportSuggestions : function(req, res){
-        
-        const rawSub = req.body.input
-        const allCaps = rawSub.toUpperCase()
-        const firstCharCaps = rawSub.charAt(0).toUpperCase() + rawSub.slice(1, rawSub.length)
-        
-        var suggestions = []
+        try{
 
-        for (var i = 0; i < airports.length; i++){
-            const airportName = airports[i]
-            if (airportName.includes(rawSub) || airportName.includes(allCaps) || airportName.includes(firstCharCaps)){
-                suggestions.push(airportName)
+            const rawSub = req.body.input
+            const allCaps = rawSub.toUpperCase()
+            const firstCharCaps = rawSub.charAt(0).toUpperCase() + rawSub.slice(1, rawSub.length)
+            
+            var suggestions = []
+            
+            for (var i = 0; i < airports.length; i++){
+                const airportName = airports[i]
+                if (airportName.includes(rawSub) || airportName.includes(allCaps) || airportName.includes(firstCharCaps)){
+                    suggestions.push(airportName)
+                }
             }
+            res.json({airports : suggestions})
         }
-        res.json({airports : suggestions})
+        catch{
+            res.json({message : "Failure"})
+        }
+            
     }
 }

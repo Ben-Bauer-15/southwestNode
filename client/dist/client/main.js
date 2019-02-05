@@ -63,7 +63,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airlines Low Price Finder!</h1>\n  <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>\n\n  <div class = 'row'>\n    \n      <mat-form-field class=\"example-full-width\">\n        <input type=\"text\" placeholder=\"From\" aria-label=\"From\" matInput [matAutocomplete]=\"auto\">\n        <mat-autocomplete #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n          <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n            {{option.name}}\n          </mat-option>\n        </mat-autocomplete>\n      </mat-form-field>\n      \n      <mat-form-field class=\"example-full-width\">\n        <input type=\"text\" placeholder=\"To\" aria-label=\"To\" matInput [matAutocomplete]=\"auto\">\n        <mat-autocomplete #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n          <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n            {{option.name}}\n          </mat-option>\n        </mat-autocomplete>\n      </mat-form-field>\n\n  </div>\n    \n  <div class = 'row'>\n\n    <mat-form-field>\n      <input matInput [matDatepicker]=\"depart\" placeholder=\"Depart\">\n      <mat-datepicker-toggle matSuffix [for]=\"depart\"></mat-datepicker-toggle>\n      <mat-datepicker #depart></mat-datepicker>\n    </mat-form-field>\n\n    <mat-form-field>\n      <input matInput [matDatepicker]=\"picker\" placeholder=\"Return\">\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n  </div>\n\n  <div class = 'row'>\n\n    <input class = 'airportCode' type = 'text' name = 'email' [(ngModel)] = 'email'>\n\n    <input class = 'airportCode' type = 'text' name = 'phone' [(ngModel)] = 'phone'>\n    \n  </div>\n\n  <button (click) = 'submit()'>Let's Go!</button>\n  \n</div>"
+module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airlines Low Price Finder!</h1>\n  <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>\n\n  <div class = 'row'>\n\n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type=\"text\" placeholder=\"From\" aria-label=\"From\" matInput>\n        <div *ngIf = '!selectedDepartAirport'> \n          <mat-option  (click) = 'selectDepartOption(option)' *ngFor=\"let option of departAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n    \n      <mat-form-field class = 'airport'>\n        <input (keyup) = 'toKeyUp()' [(ngModel)] = 'arrivalAirportCode' type=\"text\" placeholder=\"To\" aria-label=\"To\" matInput>\n        <div *ngIf = '!selectedArriveAirport'>\n          <mat-option  (click) = 'selectArriveOption(option)' *ngFor=\"let option of arriveAirportOptions\" [value]=\"option\">\n            {{option}}\n          </mat-option>\n        </div>\n      </mat-form-field>\n      \n\n  </div>\n    \n  <div class = 'row'>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'departingDate' matInput [matDatepicker]=\"depart\" placeholder=\"Depart\" [min] = 'today' [max] = 'maxFutureBooking'>\n      <mat-datepicker-toggle matSuffix [for]=\"depart\"></mat-datepicker-toggle>\n      <mat-datepicker #depart></mat-datepicker>\n    </mat-form-field>\n\n    <mat-form-field class = 'airport'>\n      <input [(ngModel)] = 'returningDate' matInput [matDatepicker]=\"picker\" placeholder=\"Return\" [min] = 'departingDate' [max] = 'maxFutureBooking'>\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n  </div>\n\n  <div class = 'row'>\n\n    \n  </div>\n\n  <button (click) = 'submit()'>Let's Go!</button>\n  \n</div>"
 
 /***/ }),
 
@@ -74,7 +74,7 @@ module.exports = "<div class = 'container'>\n  <h1>Welcome to the Southwest Airl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  text-align: center; }\n  .container .airportCode {\n    border: 1px solid gray;\n    border-radius: 5px;\n    width: 120px;\n    height: 50px;\n    margin-right: 50px;\n    font-size: 40px; }\n  .container label {\n    display: inline-block;\n    vertical-align: bottom;\n    margin-right: 15px; }\n  .container .row {\n    margin-bottom: 40px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYmF1ZXIvRGVza3RvcC9zb3V0aHdlc3Qvbm9kZVNjcmFwZXIvY2xpZW50L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQWtCLEVBQUE7RUFEdEI7SUFJUSxzQkFBc0I7SUFDdEIsa0JBQWtCO0lBQ2xCLFlBQVk7SUFDWixZQUFZO0lBQ1osa0JBQWtCO0lBQ2xCLGVBQWUsRUFBQTtFQVR2QjtJQWNRLHFCQUFxQjtJQUNyQixzQkFBc0I7SUFDdEIsa0JBQWtCLEVBQUE7RUFoQjFCO0lBb0JRLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuXG4gICAgLmFpcnBvcnRDb2RlIHtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgZ3JheTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNXB4O1xuICAgICAgICB3aWR0aDogMTIwcHg7XG4gICAgICAgIGhlaWdodDogNTBweDtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiA1MHB4O1xuICAgICAgICBmb250LXNpemU6IDQwcHg7XG4gICAgfVxuXG5cbiAgICBsYWJlbCB7XG4gICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICAgICAgdmVydGljYWwtYWxpZ246IGJvdHRvbTtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAxNXB4O1xuICAgIH1cblxuICAgIC5yb3cge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiA0MHB4O1xuICAgIH1cbn0iXX0= */"
+module.exports = ".container {\n  text-align: center; }\n  .container .airportCode {\n    border: 1px solid gray;\n    border-radius: 5px;\n    width: 120px;\n    height: 50px;\n    margin-right: 50px;\n    font-size: 40px; }\n  .container label {\n    display: inline-block;\n    vertical-align: bottom;\n    margin-right: 15px; }\n  .container .row {\n    margin-bottom: 40px;\n    text-align: center; }\n  .container .airport {\n    margin-right: 50px;\n    width: 250px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9iYmF1ZXIvRGVza3RvcC9zb3V0aHdlc3Qvbm9kZVNjcmFwZXIvY2xpZW50L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQWtCLEVBQUE7RUFEdEI7SUFJUSxzQkFBc0I7SUFDdEIsa0JBQWtCO0lBQ2xCLFlBQVk7SUFDWixZQUFZO0lBQ1osa0JBQWtCO0lBQ2xCLGVBQWUsRUFBQTtFQVR2QjtJQWNRLHFCQUFxQjtJQUNyQixzQkFBc0I7SUFDdEIsa0JBQWtCLEVBQUE7RUFoQjFCO0lBb0JRLG1CQUFtQjtJQUNuQixrQkFBa0IsRUFBQTtFQXJCMUI7SUF5QlEsa0JBQWtCO0lBQ2xCLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250YWluZXIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICAgIC5haXJwb3J0Q29kZSB7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkIGdyYXk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICAgICAgd2lkdGg6IDEyMHB4O1xuICAgICAgICBoZWlnaHQ6IDUwcHg7XG4gICAgICAgIG1hcmdpbi1yaWdodDogNTBweDtcbiAgICAgICAgZm9udC1zaXplOiA0MHB4O1xuICAgIH1cblxuXG4gICAgbGFiZWwge1xuICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgIHZlcnRpY2FsLWFsaWduOiBib3R0b207XG4gICAgICAgIG1hcmdpbi1yaWdodDogMTVweDtcbiAgICB9XG5cbiAgICAucm93IHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogNDBweDtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIH1cblxuICAgIC5haXJwb3J0IHtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiA1MHB4O1xuICAgICAgICB3aWR0aDogMjUwcHg7XG4gICAgfVxuXG59Il19 */"
 
 /***/ }),
 
@@ -98,19 +98,79 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(_http) {
         this._http = _http;
         this.title = 'client';
+        this.returningDate = new Date();
+        this.departingDate = new Date();
+        this.today = new Date();
+        this.selectedDepartAirport = false;
+        this.selectedArriveAirport = false;
+        this.maxFutureBooking = new Date(this.today.getFullYear(), this.today.getMonth() + 7, 30);
     }
     AppComponent.prototype.submit = function () {
+        var dates = this.parseDateObjects();
         var obs = this._http.startFareSearch({
             adultsCount: 1,
-            departingDate: this.departingDate,
-            returningDate: this.returningDate,
+            departingDate: dates.depart,
+            returningDate: dates.return,
             destinationAirport: this.arrivalAirportCode,
             originAirport: this.departAirportCode,
         });
         obs.subscribe(function (data) {
             console.log(data);
         });
-        // console.log('line 31')
+        // console.log(dates)
+        // console.log(this.departingDate, this.returningDate, this.departAirportCode, this.arrivalAirportCode)
+    };
+    AppComponent.prototype.ngOnInit = function () { };
+    AppComponent.prototype.fromKeyUp = function () {
+        var _this = this;
+        if (this.departAirportCode == '') {
+            this.selectedDepartAirport = true;
+        }
+        else {
+            this.selectedDepartAirport = false;
+            var obs = this._http.getAirportSuggestions({ input: this.departAirportCode });
+            obs.subscribe(function (data) {
+                _this.departAirportOptions = data.airports.slice(0, 3);
+            });
+        }
+    };
+    AppComponent.prototype.toKeyUp = function () {
+        var _this = this;
+        if (this.arrivalAirportCode == '') {
+            this.selectedArriveAirport = true;
+        }
+        else {
+            this.selectedArriveAirport = false;
+            var obs = this._http.getAirportSuggestions({ input: this.arrivalAirportCode });
+            obs.subscribe(function (data) {
+                _this.arriveAirportOptions = data.airports.slice(0, 3);
+            });
+        }
+    };
+    AppComponent.prototype.selectDepartOption = function (option) {
+        this.selectedDepartAirport = true;
+        this.departAirportCode = option.slice(option.length - 3, option.length);
+    };
+    AppComponent.prototype.selectArriveOption = function (option) {
+        this.selectedArriveAirport = true;
+        this.arrivalAirportCode = option.slice(option.length - 3, option.length);
+    };
+    AppComponent.prototype.parseDateObjects = function () {
+        var departDate = this.pad(2, this.departingDate.getDate());
+        var departMonth = this.pad(2, this.departingDate.getMonth() + 1);
+        var year = this.today.getFullYear();
+        var departString = year + "-" + departMonth + "-" + departDate;
+        var returnDate = this.pad(2, this.returningDate.getDate());
+        var returnMonth = this.pad(2, this.returningDate.getMonth() + 1);
+        var returnString = year + "-" + returnMonth + "-" + returnDate;
+        return { depart: departString, return: returnString };
+    };
+    AppComponent.prototype.pad = function (size, number) {
+        var s = String(number);
+        while (s.length < (size || 2)) {
+            s = "0" + s;
+        }
+        return s;
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -181,7 +241,8 @@ var AppModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"],
                 _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"],
                 _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatNativeDateModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatNativeDateModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"]
             ],
             providers: [_http_service__WEBPACK_IMPORTED_MODULE_7__["HttpService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
@@ -214,11 +275,11 @@ var HttpService = /** @class */ (function () {
     function HttpService(_http) {
         this._http = _http;
     }
-    HttpService.prototype.testDjango = function (obj) {
-        return this._http.post('/testDjango', obj);
-    };
     HttpService.prototype.startFareSearch = function (obj) {
         return this._http.post('/startFareSearch', obj);
+    };
+    HttpService.prototype.getAirportSuggestions = function (obj) {
+        return this._http.post('/getAirportSuggestions', obj);
     };
     HttpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
