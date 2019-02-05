@@ -54,8 +54,18 @@ export class AppComponent {
         userEmail : this.userEmail,
         userPhone : this.userPhone
       })
-      obs.subscribe( (data) => {
-        console.log(data)
+      obs.subscribe( (data : any) => {
+        if (data.message == 'Failure'){
+          alert("Sorry, Southwest doesn't have routes for the given request. Please try a different query")
+        }
+
+        else if (data.message == 'Form error'){
+          alert("Sorry, your phone number and/or email are not valid. Please try again")
+        }
+
+        else {
+          alert("Success! We will send you an email and text if we find low fares")
+        }
       })
     }
   }

@@ -38,16 +38,16 @@ module.exports = {
                     destinationAirport : req.body.destinationAirport,
                     departingDate : req.body.departingDate,
                     returningDate : req.body.returningDate
-            } }, function(err, res, body){
+            } }, (err, response, body) => {
             if (err){
                 console.log(err)
                 return false
             }
-            const tmp = res
+            // console.log(response.body)
+            res.json({message : response.body})
             
         })
 
-        res.json({message : "Success!"})
     }
 }
 
