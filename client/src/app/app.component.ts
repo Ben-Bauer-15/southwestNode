@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from "./http.service";
-import { FormControl } from "@angular/forms";
 
 
 @Component({
