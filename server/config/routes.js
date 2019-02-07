@@ -16,8 +16,8 @@ module.exports = function(app){
         controller.getAirportSuggestions(req, res)
     })
 
-    app.post('/sendText', function(req, res){
-        controller.sendText(req, res)
+    app.post('/sendLowPriceText', function(req, res){
+        controller.sendLowPriceText(req, res)
     })
 
     app.post('/recheckFares', function(req, res){

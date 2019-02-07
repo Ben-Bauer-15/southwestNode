@@ -2,9 +2,7 @@ const puppeteer = require('puppeteer')
 const fs = require('fs') 
 const http = require('http')
 const request = require('request')
-
-// example SWA URL: https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate=2019-02-01&departureTimeOfDay=ALL_DAY&destinationAirportCode=BOS&fareType=USD&originationAirportCode=DEN&passengerType=ADULT&reset=false&returnDate=2019-02-04&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip
-
+const utils = require('./utils')
 
 module.exports = {
 
@@ -32,9 +30,8 @@ module.exports = {
     }, 
 
     recheckFares : async function(req, res){
-        const urlToVisit = 'https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate='+ req.body.departingDate +'&departureTimeOfDay=ALL_DAY&destinationAirportCode='+ req.body.destinationAirport +'&fareType=USD&originationAirportCode='+ req.body.originAirport +'&passengerType=ADULT&promoCode=&reset=true&returnDate='+ req.body.returningDate +'&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip'
-
-
+        const urlToVisit = utils.generateUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
+        
         const browser = await puppeteer.launch();
         const page = await browser.newPage()
         await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
@@ -60,9 +57,8 @@ module.exports = {
 
 
 async function browse(req, res){
-    const urlToVisit = 'https://www.southwest.com/air/booking/select.html?adultPassengersCount='+ req.body.adultsCount +'&departureDate='+ req.body.departingDate +'&departureTimeOfDay=ALL_DAY&destinationAirportCode='+ req.body.destinationAirport +'&fareType=USD&originationAirportCode='+ req.body.originAirport +'&passengerType=ADULT&promoCode=&reset=true&returnDate='+ req.body.returningDate +'&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip'
 
-    console.log(urlToVisit)
+    const urlToVisit = utils.generateUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage()
@@ -88,4 +84,3 @@ async function browse(req, res){
         
     })
 }
-
