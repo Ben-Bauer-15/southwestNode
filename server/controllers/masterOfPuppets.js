@@ -10,7 +10,7 @@ module.exports = {
 
     grabSiteData : function(req, res){
 
-        request.post('http://127.0.0.1:8000/validate', 
+        request.post('http://18.188.177.136/validate', 
             { form : 
                 {userEmail : req.body.userEmail,
                 userPhone : req.body.userPhone}},
