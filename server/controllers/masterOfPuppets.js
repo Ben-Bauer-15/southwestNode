@@ -3,6 +3,8 @@ const fs = require('fs')
 const http = require('http')
 const request = require('request')
 const utils = require('./utils')
+const flights = require('./flights')
+
 
 module.exports = {
 
@@ -20,13 +22,15 @@ module.exports = {
                 }
                 else if (response.body == 'Form error'){
                     res.json({message : response.body})
+                    return false
                 }
 
-                else {
-                    browse(req, res)
+                else if (response.body == 'New user'){
+                    flights.sendSignupMessage(req.body.userEmail, req.body.userPhone)
                 }
+
+                browse(req, res)
             })
-
     }, 
 
     recheckFares : async function(req, res){

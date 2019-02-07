@@ -6,7 +6,6 @@ var readline = require('readline').createInterface({
 readline.on('line', function(line){
     airports.push(line)
 })
-
 const accountSid = require('./auth').accountSid
 const authToken = require('./auth').authToken
 const sendGridAPIKey = require('./auth').sendGridKey
@@ -15,6 +14,9 @@ const request = require('request')
 const utils = require('./utils')
 const sendGrid = require('@sendgrid/mail')
 sendGrid.setApiKey(sendGridAPIKey)
+const twilioNumber = require('./auth').twilioNumber
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 
 
 module.exports  = {
@@ -49,8 +51,8 @@ module.exports  = {
 
         client.messages.create({
             to : userPhone,
-            from : '+16037094836',
-            body : "Hello from the Southwest Low Fare Finder! We've detected that prices for your flight from " + req.body.originAirport + " to " + req.body.destinationAirport + " have dropped. Check your email (potentially in your spam folder) for a link to visit :) "
+            from : twilioNumber,
+            body : "Hello from the Southwest Low Fare Finder! We've detected that prices for your flight from " + req.body.originAirport + " to " + req.body.destinationAirport + " have dropped. Check your email (potentially in your spam folder) for a link to visit :)"
         })
         .then(message => {return true})
         .done();
@@ -65,6 +67,34 @@ module.exports  = {
 
 
         res.json({message : "Success"})
+    },
 
+    sendSignupMessage : function(email, phone){
+        client.messages.create({
+            to : phone,
+            from : twilioNumber,
+            body : "Thank you for signing up for the Southwest Low Fare Finder! We'll send you a text and email when we detect low prices"
+        })
+        .then(message => {return true})
+        .done();
+
+        const msg = {
+            to: email,
+            from: 'LowFareFinder@gmail.com',
+            subject: 'Thank you!',
+            text: "Hello from the Southwest Low Fare Finder! Thanks for signing up for our service. We'll send you a booking link if we find low prices."
+          };
+          sendGrid.send(msg);
+    },
+
+    testTwilResp : function(req, res){
+        const twiml = new MessagingResponse()
+
+        console.log(req.body)
+
+        twiml.message('The Robots are coming! Head for the hills!');
+
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
     }
 }

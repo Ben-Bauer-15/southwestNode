@@ -24,4 +24,8 @@ module.exports = function(app){
         puppeteer.recheckFares(req, res)
     })
 
+    app.post('/sms', function(req, res){
+        controller.testTwilResp(req, res)
+    })
+
 }
