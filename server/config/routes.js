@@ -20,4 +20,8 @@ module.exports = function(app){
         controller.sendText(req, res)
     })
 
+    app.post('/recheckFares', function(req, res){
+        puppeteer.recheckFares(req, res)
+    })
+
 }

@@ -29,6 +29,32 @@ module.exports = {
                 }
             })
 
+    }, 
+
+    recheckFares : async function(req, res){
+        const urlToVisit = 'https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate='+ req.body.departingDate +'&departureTimeOfDay=ALL_DAY&destinationAirportCode='+ req.body.destinationAirport +'&fareType=USD&originationAirportCode='+ req.body.originAirport +'&passengerType=ADULT&promoCode=&reset=true&returnDate='+ req.body.returningDate +'&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip'
+
+
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage()
+        await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
+        const SWcontent = await page.content()
+        await browser.close();
+
+        request.post('http://127.0.0.1:8000/updateFareSearch', 
+        { form: {siteData : SWcontent, 
+                id : req.body.id}
+             }, (err, response, body) => {
+
+            if (err){
+                console.log(err)
+                res.json({message : err})
+            }
+
+            else {
+                res.json({message : response.body})
+            }
+        })
     }
 }
 
@@ -36,7 +62,6 @@ module.exports = {
 async function browse(req, res){
     const urlToVisit = 'https://www.southwest.com/air/booking/select.html?adultPassengersCount='+ req.body.adultsCount +'&departureDate='+ req.body.departingDate +'&departureTimeOfDay=ALL_DAY&destinationAirportCode='+ req.body.destinationAirport +'&fareType=USD&originationAirportCode='+ req.body.originAirport +'&passengerType=ADULT&promoCode=&reset=true&returnDate='+ req.body.returningDate +'&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip'
 
-    // console.log(req.body.userEmail)
     console.log(urlToVisit)
 
     const browser = await puppeteer.launch();
@@ -59,7 +84,6 @@ async function browse(req, res){
             console.log(err)
             return false
         }
-        // console.log(response.body)
         res.json({message : response.body})
         
     })

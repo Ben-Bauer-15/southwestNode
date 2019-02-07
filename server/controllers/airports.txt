@@ -90,7 +90,7 @@ San Jose, CA - SJC
 Cabo San Lucas/Los Cabos, MX - SJD
 San Jose, Costa Rica - SJO
 San Juan, PR - SJU
-Sal Lake City, UT - SLC
+Salt Lake City, UT - SLC
 Sacramento, CA - SMF
 Orange County/Santa Ana, CA - SNA
 St. Louis, MO - STL
