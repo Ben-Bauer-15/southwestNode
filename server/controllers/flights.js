@@ -88,13 +88,13 @@ module.exports  = {
     },
 
     testTwilResp : function(req, res){
-        const twiml = new MessagingResponse()
+        const response = new MessagingResponse()
 
-        console.log(req.body)
+        console.log(req.body.Body)
 
-        twiml.message('The Robots are coming! Head for the hills!');
+        response.message('The Robots are coming! Head for the hills!');
 
         res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString());
+        res.end(response.toString());
     }
 }
