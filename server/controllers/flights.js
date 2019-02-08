@@ -17,6 +17,7 @@ sendGrid.setApiKey(sendGridAPIKey)
 const twilioNumber = require('./auth').twilioNumber
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+const ID_REGEX = new RegExp('^\\d+$')
 
 
 module.exports  = {
@@ -45,14 +46,13 @@ module.exports  = {
     sendLowPriceText : function(req, res){
         const url = utils.generateUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
 
-        const userPhone = utils.generatePhoneNumber(req.body.userPhone)
-
+        const userPhone = utils.generateTwilioPhoneNumber(req.body.userPhone)
         const userEmail = req.body.userEmail
 
         client.messages.create({
             to : userPhone,
             from : twilioNumber,
-            body : "Hello from the Southwest Low Fare Finder! We've detected that prices for your flight from " + req.body.originAirport + " to " + req.body.destinationAirport + " have dropped. Check your email (potentially in your spam folder) for a link to visit :)"
+            body : "Hello from the Southwest Low Fare Finder! We've detected that prices for your flight from " + req.body.originAirport + " to " + req.body.destinationAirport + " have dropped. Check your email (potentially in your spam folder) for a link to visit :) \n Reply HALT to tell us to cancel this search",
         })
         .then(message => {return true})
         .done();
@@ -87,14 +87,49 @@ module.exports  = {
           sendGrid.send(msg);
     },
 
-    testTwilResp : function(req, res){
+    twilioIncoming : function(req, res){
         const response = new MessagingResponse()
 
-        console.log(req.body.Body)
+        const twilioPhone = req.body.From
+        const djangoPhone = utils.generateDjangoPhoneNumber(twilioPhone)
 
-        response.message('The Robots are coming! Head for the hills!');
+        if (ID_REGEX.test(req.body.Body)){
+            request.post('http://127.0.0.1:8000/delete',
+            {form : {searchID : req.body.Body, userPhone : djangoPhone}}, (err, djangoResponse, body) => {
+                if (err){
+                    console.log(err)
+                    return false
+                }
+                
+                const clientMsg = 'Your search has been discontinued'
+                response.message(clientMsg)
+                res.writeHead(200, {'Content-Type': 'text/xml'})
+                res.end(response.toString())
+                
+            })
+        }
 
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(response.toString());
+        else if (req.body.Body == 'HALT'){
+            
+            request.post('http://127.0.0.1:8000/findSearches', 
+            { form: {userPhone : djangoPhone} }, (err, djangoResponse, body) => {
+    
+            if (err){
+                console.log(err)
+                return false
+            }
+                
+                const searches = JSON.parse(djangoResponse.body)
+                var clientMsg = 'Tell us which search ID you would like to cancel: \n'
+
+                for (var i in searches){
+                    clientMsg += (i + ' : ' + searches[i][0] + ' -> ' + searches[i][1] + ' from ' + searches[i][2] + ' to ' + searches[i][3] + '\n')
+                }
+
+                response.message(clientMsg)
+                res.writeHead(200, {'Content-Type': 'text/xml'})
+                res.end(response.toString())
+            })
+        }
     }
 }
