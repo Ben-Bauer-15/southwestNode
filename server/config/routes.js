@@ -25,7 +25,7 @@ module.exports = function(app){
     })
 
     app.post('/sms', function(req, res){
-        controller.testTwilResp(req, res)
+        controller.twilioIncoming(req, res)
     })
 
 }
