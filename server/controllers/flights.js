@@ -44,7 +44,7 @@ module.exports  = {
     },
 
     sendLowPriceText : function(req, res){
-        const url = utils.generateUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
+        const url = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
 
         const userPhone = utils.generateTwilioPhoneNumber(req.body.userPhone)
         const userEmail = req.body.userEmail
@@ -91,21 +91,31 @@ module.exports  = {
         const response = new MessagingResponse()
 
         const twilioPhone = req.body.From
+        console.log("twilio incoming message : ", req.body)
         const djangoPhone = utils.generateDjangoPhoneNumber(twilioPhone)
 
         if (ID_REGEX.test(req.body.Body)){
             request.post('http://127.0.0.1:8000/delete',
             {form : {searchID : req.body.Body, userPhone : djangoPhone}}, (err, djangoResponse, body) => {
+                var clientMsg;
                 if (err){
                     console.log(err)
                     return false
                 }
-                
-                const clientMsg = 'Your search has been discontinued'
-                response.message(clientMsg)
-                res.writeHead(200, {'Content-Type': 'text/xml'})
-                res.end(response.toString())
-                
+
+                else if (djangoResponse.body == 'Invalid search ID'){
+                    clientMsg = 'Invalid search ID. Please try again.'
+                    response.message(clientMsg)
+                    res.writeHead(200, {'Content-Type': 'text/xml'})
+                    res.end(response.toString())
+                }
+
+                else if (djangoResponse.body == 'Success'){
+                    clientMsg = 'Your search has been discontinued'
+                    response.message(clientMsg)
+                    res.writeHead(200, {'Content-Type': 'text/xml'})
+                    res.end(response.toString())
+                }
             })
         }
 
@@ -118,17 +128,27 @@ module.exports  = {
                 console.log(err)
                 return false
             }
-                
+            
+            else if (djangoResponse.body == 'No searches found'){
+                response.message("Sorry, we couldn't find any searches under this number")
+                res.writeHead(200, {'Content-Type': 'text/xml'})
+                res.end(response.toString())
+            }
+
+            else {
+
                 const searches = JSON.parse(djangoResponse.body)
                 var clientMsg = 'Tell us which search ID you would like to cancel: \n'
-
+                
                 for (var i in searches){
                     clientMsg += (i + ' : ' + searches[i][0] + ' -> ' + searches[i][1] + ' from ' + searches[i][2] + ' to ' + searches[i][3] + '\n')
                 }
-
+                
                 response.message(clientMsg)
                 res.writeHead(200, {'Content-Type': 'text/xml'})
                 res.end(response.toString())
+            }
+
             })
         }
     }
