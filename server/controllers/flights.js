@@ -148,8 +148,16 @@ module.exports  = {
                 res.writeHead(200, {'Content-Type': 'text/xml'})
                 res.end(response.toString())
             }
-
-            })
-        }
+            
+        })
     }
+        
+        else {
+                const clientMsg = 'Invalid response. Please try again.'
+                response.message(clientMsg)
+                res.writeHead(200, {'Content-Type': 'text/xml'})
+                res.end(response.toString())
+                
+            }
+        }
 }

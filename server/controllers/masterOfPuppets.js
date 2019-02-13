@@ -37,6 +37,7 @@ module.exports = {
         else {
             browse(req, res)
         }
+        
     }, 
 
     recheckFares : async function(req, res){
@@ -75,16 +76,21 @@ async function browse(req, res){
         urlToVisit = utils.generateOneWayUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport)
         console.log(urlToVisit)
 
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage()
-        await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
-        const SWcontent = await page.content()
-        await browser.close();
-        res.json({message : SWcontent})
+        try{
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage()
+            await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
+            const SWcontent = await page.content()
+            await browser.close();
+            res.json({message : SWcontent})
+        }
+        catch{
+            res.json({message : "Failure"})
+        }
     }
 
     else {
-        urlToVisit = utils.generateUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
+        urlToVisit = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
         const browser = await puppeteer.launch();
         const page = await browser.newPage()
         await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
