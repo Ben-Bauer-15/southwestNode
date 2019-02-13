@@ -94,6 +94,8 @@ module.exports  = {
         console.log("twilio incoming message : ", req.body)
         const djangoPhone = utils.generateDjangoPhoneNumber(twilioPhone)
 
+
+        // AWS IP IS 18.188.177.136
         if (ID_REGEX.test(req.body.Body)){
             request.post('http://18.188.177.136/delete',
             {form : {searchID : req.body.Body, userPhone : djangoPhone}}, (err, djangoResponse, body) => {

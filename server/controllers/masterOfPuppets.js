@@ -41,6 +41,7 @@ module.exports = {
     }, 
 
     recheckFares : async function(req, res){
+        console.log("Rechecking a search")
         const urlToVisit = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
         
         const browser = await puppeteer.launch();
@@ -49,6 +50,7 @@ module.exports = {
         const SWcontent = await page.content()
         await browser.close();
 
+        // AWS IP IS 18.188.177.136
         request.post('http://18.188.177.136/updateFareSearch', 
         { form: {siteData : SWcontent, 
                 id : req.body.id}
