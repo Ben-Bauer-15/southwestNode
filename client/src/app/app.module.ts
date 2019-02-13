@@ -12,6 +12,7 @@ import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/mater
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 
@@ -31,7 +32,8 @@ import { MatNativeDateModule } from "@angular/material";
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

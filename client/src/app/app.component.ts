@@ -23,6 +23,7 @@ export class AppComponent {
   selectedArriveAirport : Boolean = false
   userEmail : String;
   userPhone : String;
+  waitingForDjango = false;
   
   
   constructor(private _http : HttpService){
@@ -41,6 +42,7 @@ export class AppComponent {
     }
 
     else {
+      this.waitingForDjango = true
       const dates = this.parseDateObjects()
 
       console.log(this.userEmail)
@@ -54,6 +56,7 @@ export class AppComponent {
         userPhone : this.userPhone
       })
       obs.subscribe( (data : any) => {
+        this.waitingForDjango = false
         if (data.message == 'Failure'){
           alert("Sorry, Southwest doesn't have routes for the given request. Please try a different query")
         }
@@ -65,6 +68,7 @@ export class AppComponent {
         else {
           alert("Success! We will send you an email and text if we find low fares")
         }
+        
       })
     }
   }

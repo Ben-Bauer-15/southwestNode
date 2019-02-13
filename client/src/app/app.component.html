@@ -2,7 +2,7 @@
   <h1>Welcome to the Southwest Airlines Low Fare Finder!</h1>
   <h4>Tell us where and when you want to go, and we'll start looking for great rates</h4>
 
-  <div class = 'row'>
+  <div *ngIf = '!waitingForDjango' class = 'row'>
 
       <mat-form-field class = 'airport'>
         <input (keyup) = 'fromKeyUp()' [(ngModel)] = 'departAirportCode' type="text" placeholder="From" aria-label="From" matInput required>
@@ -24,8 +24,13 @@
       
 
   </div>
+
+  <div *ngIf = 'waitingForDjango' class = 'center'>
+    <mat-spinner></mat-spinner>
+  </div>
+
     
-  <div class = 'row'>
+  <div *ngIf = '!waitingForDjango' class = 'row'>
 
     <mat-form-field class = 'airport'>
       <input [(ngModel)] = 'departingDate' matInput [matDatepicker]="depart" placeholder="Depart" [min] = 'today' [max] = 'maxFutureBooking' required>
@@ -40,7 +45,7 @@
     </mat-form-field>
 
   </div>
-  <div class = 'row'>
+  <div *ngIf = '!waitingForDjango' class = 'row'>
     <mat-form-field class = "airport">
         <input [(ngModel)] = 'userEmail' matInput placeholder="Email" required>
     </mat-form-field>
@@ -50,7 +55,7 @@
     </mat-form-field>
   </div>
 
-  <div class = 'row'>
+  <div *ngIf = '!waitingForDjango' class = 'row'>
 
     <button mat-button (click) = 'submit()'>Let's Go!</button>
     
