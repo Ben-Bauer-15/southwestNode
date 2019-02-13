@@ -111,6 +111,7 @@ async function browse(req, res){
                 console.log(err)
                 return false
             }
+            console.log(response.body)
             res.json({message : response.body})
             
         })
