@@ -95,7 +95,7 @@ module.exports  = {
         const djangoPhone = utils.generateDjangoPhoneNumber(twilioPhone)
 
         if (ID_REGEX.test(req.body.Body)){
-            request.post('http://127.0.0.1:4000/delete',
+            request.post('http://127.0.0.1:8000/delete',
             {form : {searchID : req.body.Body, userPhone : djangoPhone}}, (err, djangoResponse, body) => {
                 var clientMsg;
                 if (err){
@@ -121,7 +121,7 @@ module.exports  = {
 
         else if (req.body.Body == 'HALT'){
             
-            request.post('http://127.0.0.1:4000/findSearches', 
+            request.post('http://127.0.0.1:8000/findSearches', 
             { form: {userPhone : djangoPhone} }, (err, djangoResponse, body) => {
     
             if (err){

@@ -11,7 +11,7 @@ module.exports = {
     grabSiteData : function(req, res){
 
         if (!req.body.tripType){
-        request.post('http://127.0.0.1:4000/validate', 
+        request.post('http://127.0.0.1:8000/validate', 
         { form : 
             {userEmail : req.body.userEmail,
                 userPhone : req.body.userPhone}},
@@ -48,7 +48,7 @@ module.exports = {
         const SWcontent = await page.content()
         await browser.close();
 
-        request.post('http://127.0.0.1:4000/updateFareSearch', 
+        request.post('http://127.0.0.1:8000/updateFareSearch', 
         { form: {siteData : SWcontent, 
                 id : req.body.id}
              }, (err, response, body) => {
@@ -96,7 +96,7 @@ async function browse(req, res){
         const SWcontent = await page.content()
         await browser.close();
     
-        request.post('http://127.0.0.1:4000/startFareSearch', 
+        request.post('http://127.0.0.1:8000/startFareSearch', 
             { form: {siteData : SWcontent, 
                     userEmail : req.body.userEmail,
                     userPhone : req.body.userPhone,
