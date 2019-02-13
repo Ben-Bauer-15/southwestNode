@@ -49,7 +49,7 @@ module.exports = {
         const SWcontent = await page.content()
         await browser.close();
 
-        request.post('http://127.0.0.1:8000/updateFareSearch', 
+        request.post('http://18.188.177.136/updateFareSearch', 
         { form: {siteData : SWcontent, 
                 id : req.body.id}
              }, (err, response, body) => {
@@ -97,7 +97,7 @@ async function browse(req, res){
         const SWcontent = await page.content()
         await browser.close();
     
-        request.post('http://127.0.0.1:8000/startFareSearch', 
+        request.post('http://18.188.177.136/startFareSearch', 
             { form: {siteData : SWcontent, 
                     userEmail : req.body.userEmail,
                     userPhone : req.body.userPhone,
