@@ -149,8 +149,8 @@ module.exports  = {
                 res.end(response.toString())
             }
             
-        })
-    }
+            })
+        }
         
         else {
                 const clientMsg = 'Invalid response. Please try again.'
@@ -159,5 +159,5 @@ module.exports  = {
                 res.end(response.toString())
                 
             }
-        }
+    }
 }
