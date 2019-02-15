@@ -44,6 +44,7 @@ module.exports  = {
     },
 
     sendLowPriceText : function(req, res){
+        console.log('sending a low price text')
         const url = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
 
         const userPhone = utils.generateTwilioPhoneNumber(req.body.userPhone)
