@@ -43,34 +43,34 @@ module.exports = {
     recheckFares : async function(req, res){
         console.log("Rechecking a search")
         const urlToVisit = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
-        
-        try{
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage()
-            await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
-            const SWcontent = await page.content()
-            await browser.close();
     
-            // AWS IP IS 18.188.177.136
-            request.post('http://18.188.177.136/updateFareSearch', 
-            { form: {siteData : SWcontent, 
-                    id : req.body.id}
-                 }, (err, response, body) => {
-    
-                if (err){
-                    console.log(err)
-                    res.json({message : err})
-                }
-    
-                else {
-                    res.json({message : response.body})
-                }
-            })
-
-        }
-        catch{
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage()
+        process.on('unhandledRejection', (reason, p) => {
+            console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
+            browser.close();
             res.json({message : "Failure"})
-        }
+            return false
+        })
+        await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
+        const SWcontent = await page.content()
+        await browser.close();
+
+        // AWS IP IS 18.188.177.136
+        request.post('http://18.188.177.136/updateFareSearch', 
+        { form: {siteData : SWcontent, 
+                id : req.body.id}
+                }, (err, response, body) => {
+
+            if (err){
+                console.log(err)
+                res.json({message : err})
+            }
+
+            else {
+                res.json({message : response.body})
+            }
+        })
     }
 }
 
@@ -84,17 +84,18 @@ async function browse(req, res){
         urlToVisit = utils.generateOneWayUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport)
         console.log(urlToVisit)
 
-        try{
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage()
-            await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
-            const SWcontent = await page.content()
-            await browser.close();
-            res.json({message : SWcontent})
-        }
-        catch{
+        const browser = await puppeteer.launch()
+        const page = await browser.newPage()
+        process.on('unhandledRejection', (reason, p) => {
+            console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
+            browser.close();
             res.json({message : "Failure"})
-        }
+            return false
+        })
+        await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
+        const SWcontent = await page.content()
+        await browser.close();
+        res.json({message : SWcontent})
     }
 
     else {
@@ -102,6 +103,12 @@ async function browse(req, res){
         console.log(urlToVisit)
         const browser = await puppeteer.launch();
         const page = await browser.newPage()
+        process.on('unhandledRejection', (reason, p) => {
+            console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
+            browser.close();
+            res.json({message : "Failure"})
+            return false
+        })
         await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
         const SWcontent = await page.content()
         await browser.close();
