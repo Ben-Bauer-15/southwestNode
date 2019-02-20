@@ -11,7 +11,7 @@ module.exports = {
     grabSiteData : function(req, res){
 
         if (!req.body.tripType){
-        request.post('http://127.0.0.1:8000/validate', 
+        request.post('http://18.188.177.136/validate', 
         { form : 
             {userEmail : req.body.userEmail,
 
@@ -52,7 +52,7 @@ module.exports = {
             await browser.close();
     
             // AWS IP IS 18.188.177.136
-            request.post('http://127.0.0.1:8000/updateFareSearch', 
+            request.post('http://18.188.177.136/updateFareSearch', 
             { form: {siteData : SWcontent, 
                     id : req.body.id}
                  }, (err, response, body) => {
@@ -99,13 +99,14 @@ async function browse(req, res){
 
     else {
         urlToVisit = utils.generateRoundtripUrl(1, req.body.departingDate, req.body.destinationAirport, req.body.originAirport, req.body.returningDate)
+        console.log(urlToVisit)
         const browser = await puppeteer.launch();
         const page = await browser.newPage()
         await page.goto(urlToVisit, {waitUntil: 'networkidle2'});
         const SWcontent = await page.content()
         await browser.close();
     
-        request.post('http://127.0.0.1:8000/startFareSearch', 
+        request.post('http://18.188.177.136/startFareSearch', 
             { form: {siteData : SWcontent, 
                     userEmail : req.body.userEmail,
                     userPhone : req.body.userPhone,

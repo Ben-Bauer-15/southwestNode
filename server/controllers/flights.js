@@ -98,7 +98,7 @@ module.exports  = {
 
         // AWS IP IS 18.188.177.136
         if (ID_REGEX.test(req.body.Body)){
-            request.post('http://127.0.0.1:8000/delete',
+            request.post('http://18.188.177.136/delete',
             {form : {searchID : req.body.Body, userPhone : djangoPhone}}, (err, djangoResponse, body) => {
                 var clientMsg;
                 if (err){
@@ -124,7 +124,7 @@ module.exports  = {
 
         else if (req.body.Body == 'HALT'){
             
-            request.post('http://127.0.0.1:8000/findSearches', 
+            request.post('http://18.188.177.136/findSearches', 
             { form: {userPhone : djangoPhone} }, (err, djangoResponse, body) => {
     
             if (err){
